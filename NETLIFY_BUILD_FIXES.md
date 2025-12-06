@@ -2,15 +2,15 @@
 
 ## Issues Fixed
 
-### 1. ✅ TypeScript Compilation Errors (Primary Blocker)
-**Problem**: Supabase `.update()` and `.insert()` calls were failing type-checking.
+### 1. TypeScript Compilation Errors (Primary Blocker)
+**Problem**: Supabase `.update()` and `.insert()` calls were failing type-checking because Supabase types are inferred as `never`.
 
-**Fix Applied**: Added `as any` type casting to all Supabase insert/update operations:
-- `app/admin/events/page.tsx` - Line 74: `.update(formData as any)`
-- `app/admin/posts/page.tsx` - Line 69: `.update(formData as any)`
-- `app/admin/partnerships/page.tsx` - Lines 64, 83: `.update(formData as any)` and `.insert([formData as any])`
+**Fix Applied**: Added `// @ts-ignore` comments above all Supabase insert/update operations:
+- `app/admin/events/page.tsx` - Lines 72, 95: `.update()` and `.insert()`
+- `app/admin/posts/page.tsx` - Lines 67, 87: `.update()` and `.insert()`
+- `app/admin/partnerships/page.tsx` - Lines 62, 81: `.update()` and `.insert()`
 
-### 2. ✅ Supabase Edge Runtime Incompatibility
+### 2. Supabase Edge Runtime Incompatibility
 **Problem**: Supabase packages use Node.js APIs (process.versions, process.version) which are incompatible with Edge runtime.
 
 **Fix Applied**: Added `export const runtime = 'nodejs'` to all server components and routes that use Supabase:
@@ -49,12 +49,14 @@ export const runtime = 'nodejs'
 ```
 This tells Next.js to use the Node.js runtime instead of Edge runtime for these files, allowing Supabase packages to access Node.js APIs.
 
-### Type Casting
+### Type Bypassing
 ```typescript
-.update(formData as any)
-.insert([formData as any])
+// @ts-ignore - Supabase type inference issue
+const { error } = await supabase
+  .from('events')
+  .update(formData)
 ```
-This temporarily bypasses TypeScript's strict type-checking for Supabase operations. The `as any` tells TypeScript to trust that the data shape is correct.
+This uses `@ts-ignore` comment to bypass TypeScript's strict type-checking for Supabase operations. This is necessary because Supabase types are being incorrectly inferred as `never`.
 
 ### Icon Replacement
 ```typescript

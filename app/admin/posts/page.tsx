@@ -64,9 +64,10 @@ export default function AdminPostsPage() {
     if (!session) return
 
     if (editingPost) {
+      // @ts-ignore - Supabase type inference issue
       const { error } = await supabase
         .from('posts')
-        .update(formData as any)
+        .update(formData)
         .eq('id', editingPost.id)
 
       if (error) {
@@ -83,6 +84,7 @@ export default function AdminPostsPage() {
         fetchPosts()
       }
     } else {
+      // @ts-ignore - Supabase type inference issue
       const { error } = await supabase
         .from('posts')
         .insert([{ ...formData, created_by: session.user.id }])

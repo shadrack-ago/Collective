@@ -78,9 +78,10 @@ export default function AdminPartnershipsPage() {
         fetchPartnerships()
       }
     } else {
+      // @ts-ignore - Supabase type inference issue
       const { error } = await supabase
         .from('partnerships')
-        .insert([formData as any])
+        .insert([formData])
 
       if (error) {
         toast({

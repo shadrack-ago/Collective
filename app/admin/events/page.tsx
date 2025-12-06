@@ -69,9 +69,10 @@ export default function AdminEventsPage() {
 
     if (editingEvent) {
       // Update existing event
+      // @ts-ignore - Supabase type inference issue
       const { error } = await supabase
         .from('events')
-        .update(formData as any)
+        .update(formData)
         .eq('id', editingEvent.id)
 
       if (error) {
@@ -91,6 +92,7 @@ export default function AdminEventsPage() {
       }
     } else {
       // Create new event
+      // @ts-ignore - Supabase type inference issue
       const { error } = await supabase
         .from('events')
         .insert([{ ...formData, created_by: session.user.id }])
