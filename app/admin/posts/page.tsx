@@ -66,7 +66,7 @@ export default function AdminPostsPage() {
     if (editingPost) {
       const { error } = await supabase
         .from('posts')
-        .update(formData)
+        .update(formData as any)
         .eq('id', editingPost.id)
 
       if (error) {

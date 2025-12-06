@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
-import { Handshake, ArrowLeft, Plus, Edit, Trash2 } from 'lucide-react'
+import { Briefcase, ArrowLeft, Plus, Edit, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 
 type Partnership = {
@@ -61,7 +61,7 @@ export default function AdminPartnershipsPage() {
     if (editingPartnership) {
       const { error } = await supabase
         .from('partnerships')
-        .update(formData)
+        .update(formData as any)
         .eq('id', editingPartnership.id)
 
       if (error) {
@@ -80,7 +80,7 @@ export default function AdminPartnershipsPage() {
     } else {
       const { error } = await supabase
         .from('partnerships')
-        .insert([formData])
+        .insert([formData as any])
 
       if (error) {
         toast({

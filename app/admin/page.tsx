@@ -2,8 +2,11 @@ import { redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase/server'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Calendar, FileText, Handshake, Users, ArrowLeft } from 'lucide-react'
+import { Calendar, FileText, Users, ArrowLeft, Briefcase } from 'lucide-react'
 import Link from 'next/link'
+
+// Use Node.js runtime for Supabase compatibility
+export const runtime = 'nodejs'
 
 export default async function AdminPage() {
   const supabase = createServerClient()
@@ -83,7 +86,7 @@ export default async function AdminPage() {
             <CardHeader>
               <CardTitle className="text-3xl">{partnershipsCount || 0}</CardTitle>
               <CardDescription className="flex items-center gap-2">
-                <Handshake className="h-4 w-4" />
+                <Briefcase className="h-4 w-4" />
                 Partnerships
               </CardDescription>
             </CardHeader>
@@ -133,7 +136,7 @@ export default async function AdminPage() {
 
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <Handshake className="h-12 w-12 mb-4 text-primary" />
+              <Briefcase className="h-12 w-12 mb-4 text-primary" />
               <CardTitle>Manage Partnerships</CardTitle>
               <CardDescription>
                 Add and manage organizational partnerships

@@ -71,7 +71,7 @@ export default function AdminEventsPage() {
       // Update existing event
       const { error } = await supabase
         .from('events')
-        .update(formData)
+        .update(formData as any)
         .eq('id', editingEvent.id)
 
       if (error) {

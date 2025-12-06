@@ -2,8 +2,11 @@ import { redirect } from 'next/navigation'
 import { createServerClient } from '@/lib/supabase/server'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Calendar, Users, Lightbulb, ExternalLink, Linkedin, MessageCircle, LogOut } from 'lucide-react'
+import { Calendar, MapPin, Users, Linkedin, MessageCircle, Lightbulb, LogOut, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
+
+// Use Node.js runtime for Supabase compatibility
+export const runtime = 'nodejs'
 
 export default async function DashboardPage() {
   const supabase = createServerClient()
