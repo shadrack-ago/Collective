@@ -20,10 +20,21 @@ export default function RegisterPage() {
     fullName: '',
     organization: '',
   })
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!acceptedTerms) {
+      toast({
+        title: 'Terms Required',
+        description: 'Please accept the Terms of Service and Privacy Policy to continue.',
+        variant: 'destructive',
+      })
+      return
+    }
+    
     setLoading(true)
 
     const supabase = createClient()
@@ -112,7 +123,32 @@ export default function RegisterPage() {
                 minLength={6}
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            
+            {/* Consent Checkbox */}
+            <div className="flex items-start space-x-2 pt-2">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded border-gray-300"
+                required
+              />
+              <label htmlFor="terms" className="text-sm text-muted-foreground leading-tight">
+                I agree to the{' '}
+                <Link href="/terms" target="_blank" className="text-primary hover:underline font-medium">
+                  Terms of Service
+                </Link>{' '}
+                and{' '}
+                <Link href="/privacy" target="_blank" className="text-primary hover:underline font-medium">
+                  Privacy Policy
+                </Link>
+                . I consent to AI Collective Kenya storing my name and email address for account management 
+                and sending me notifications about upcoming events and community updates.
+              </label>
+            </div>
+
+            <Button type="submit" className="w-full" disabled={loading || !acceptedTerms}>
               {loading ? 'Creating account...' : 'Create Account'}
             </Button>
           </form>

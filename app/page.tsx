@@ -145,9 +145,18 @@ export default function Home() {
                 The AI Collective
               </Link>
             </p>
-            <p className="text-sm">
+            <p className="text-sm mb-3">
               Gathering pioneers on the frontier of AI
             </p>
+            <div className="flex justify-center gap-4 text-sm">
+              <Link href="/privacy" className="hover:text-primary underline">
+                Privacy Policy
+              </Link>
+              <span>•</span>
+              <Link href="/terms" className="hover:text-primary underline">
+                Terms of Service
+              </Link>
+            </div>
           </div>
         </div>
       </footer>

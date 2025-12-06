@@ -10,6 +10,7 @@ A modern community platform built for AI Collective Kenya, featuring user authen
 - **Content Management** - Admin panel for creating posts and announcements
 - **Partnership Showcase** - Display organizational partnerships
 - **Admin Panel** - Full content management system for administrators
+- **Privacy Compliance** - Built-in Privacy Policy and Terms of Service with consent management
 - **Responsive Design** - Beautiful, modern UI built with TailwindCSS and shadcn/ui
 
 ## 🛠️ Tech Stack
@@ -113,10 +114,12 @@ ai-collective-kenya/
 │   │   └── partnerships/   # Partnership management
 │   ├── auth/               # Authentication pages
 │   │   ├── login/
-│   │   ├── register/
+│   │   ├── register/       # With consent checkbox
 │   │   ├── verify-email/
 │   │   └── callback/
 │   ├── dashboard/          # User dashboard
+│   ├── privacy/            # Privacy Policy page
+│   ├── terms/              # Terms of Service page
 │   ├── api/                # API routes
 │   ├── layout.tsx          # Root layout
 │   ├── page.tsx            # Home page
@@ -129,8 +132,11 @@ ai-collective-kenya/
 ├── types/
 │   └── supabase.ts         # TypeScript types
 ├── supabase/
+│   ├── migrations/         # Database migrations
 │   └── schema.sql          # Database schema
 ├── middleware.ts           # Auth middleware
+├── netlify.toml            # Netlify configuration
+├── DEPLOYMENT.md           # Deployment guide
 └── README.md
 ```
 
@@ -204,7 +210,20 @@ Update the site name, colors, and metadata in:
 
 ## 🚀 Deployment
 
-### Deploy to Vercel
+### Deploy to Netlify (Recommended)
+
+This project is optimized for Netlify deployment with Next.js. See detailed guide: **[DEPLOYMENT.md](./DEPLOYMENT.md)**
+
+**Quick Steps:**
+1. Push your code to GitHub
+2. Go to [netlify.com](https://netlify.com) and import from GitHub
+3. Add environment variables in Netlify dashboard
+4. Deploy!
+5. Update Supabase redirect URLs with your Netlify domain
+
+**Pre-deployment:** Review [PRE_DEPLOYMENT_CHECKLIST.md](./PRE_DEPLOYMENT_CHECKLIST.md)
+
+### Deploy to Vercel (Alternative)
 
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com)
