@@ -152,6 +152,47 @@ export interface Database {
           updated_at?: string
         }
       }
+      project_submissions: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          user_id: string
+          title: string
+          overview: string
+          live_url: string
+          github_url: string | null
+          built_on: Database['public']['Enums']['project_built_on']
+          built_on_other_text: string | null
+          is_featured: boolean
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id: string
+          title: string
+          overview: string
+          live_url: string
+          github_url?: string | null
+          built_on: Database['public']['Enums']['project_built_on']
+          built_on_other_text?: string | null
+          is_featured?: boolean
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+          title?: string
+          overview?: string
+          live_url?: string
+          github_url?: string | null
+          built_on?: Database['public']['Enums']['project_built_on']
+          built_on_other_text?: string | null
+          is_featured?: boolean
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -160,7 +201,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      project_built_on: 'windsurf' | 'other'
     }
   }
 }

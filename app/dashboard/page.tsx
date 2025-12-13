@@ -37,6 +37,11 @@ export default async function DashboardPage() {
     .select('*')
     .limit(6)
 
+  // Fetch projects count (authenticated-only visibility)
+  const { count: projectsCount } = await supabase
+    .from('project_submissions')
+    .select('*', { count: 'exact', head: true })
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Header */}
@@ -48,6 +53,9 @@ export default async function DashboardPage() {
               <span className="font-bold text-xl">AI Collective Kenya</span>
             </div>
             <div className="flex items-center gap-4">
+              <Link href="/dashboard/projects">
+                <Button variant="outline">Projects</Button>
+              </Link>
               {profile?.is_admin && (
                 <Link href="/admin">
                   <Button variant="outline">Admin Panel</Button>
@@ -76,7 +84,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">{events?.length || 0}</CardTitle>
@@ -94,6 +102,17 @@ export default async function DashboardPage() {
               <CardTitle className="text-2xl">100K+</CardTitle>
               <CardDescription>Global Members</CardDescription>
             </CardHeader>
+          </Card>
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="text-2xl">{projectsCount || 0}</CardTitle>
+              <CardDescription>Community Projects</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/dashboard/projects">
+                <Button variant="outline" className="w-full">View & Submit</Button>
+              </Link>
+            </CardContent>
           </Card>
         </div>
 
